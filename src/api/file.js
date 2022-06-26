@@ -14,3 +14,11 @@ export function findAllByPath(path) {
         data: path
     })
 }
+
+export function saveFile(file) {
+    return request({
+        url: '/file/save',
+        method: 'post',
+        data: file
+    })
+}

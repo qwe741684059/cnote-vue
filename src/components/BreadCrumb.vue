@@ -5,7 +5,6 @@
         <span style="font-size: 18px">
           {{item.text}}
         </span>
-
       </el-breadcrumb-item>
     </el-breadcrumb>
   </div>

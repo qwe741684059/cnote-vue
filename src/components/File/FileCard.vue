@@ -59,7 +59,13 @@ export default {
       const _this = this
       let fileDetail = {fileId:this.item.fileId}
       saveDetail(fileDetail).then(function (resp) {
-        _this.$router.push(`/file/${resp.data}`)
+        _this.$router.push({
+          path:`/file/${resp.data}`,
+          query:{
+            fileId:_this.item.fileId,
+            fileName: _this.item.name
+          }
+        })
       })
     },
     clickFolder() {
