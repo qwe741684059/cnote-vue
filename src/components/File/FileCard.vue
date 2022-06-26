@@ -3,7 +3,7 @@
     <div v-if="!item.file">
       <v-row>
         <v-col align="center" >
-          <v-btn  icon large @click="clickFolder">
+          <v-btn  icon large @click="clickFolder" >
             <v-icon large>mdi-folder</v-icon>
           </v-btn >
           <p>{{item.name}}</p>
@@ -30,11 +30,15 @@
 </template>
 
 <script>
+import {saveDetail} from "@/api/fileDetail";
 export default {
   name: "FileCard",
   props: {
     item: {
     }
+  },
+  created() {
+
   },
   data() {
     return {
@@ -52,13 +56,15 @@ export default {
   },
   methods: {
     clickFile() {
-      if(this.$route.path === '/') {
-
-      }
+      const _this = this
+      let fileDetail = {fileId:this.item.fileId}
+      saveDetail(fileDetail).then(function (resp) {
+        _this.$router.push(`/file/${resp.data}`)
+      })
     },
     clickFolder() {
       if (this.$route.path === '/') {
-        let path = '/home/' + this.item.name
+        let path = '/index.html/' + this.item.name
         this.$router.push(path)
       } else {
         let path = this.$route.path + '/' + this.item.name

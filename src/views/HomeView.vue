@@ -1,5 +1,6 @@
 <template>
   <v-row>
+
     <v-col cols="2" >
       <!-- 左边菜单栏 -->
       <left-menu></left-menu>
@@ -8,7 +9,10 @@
     <v-col>
       <!-- 面包屑导航 -->
       <v-row>
-        <bread-crumb :path="this.$route.params.path"></bread-crumb>
+        <v-container style="height: 68px">
+          <bread-crumb :path="this.$route.params.path"></bread-crumb>
+        </v-container>
+
       </v-row>
 
       <v-row><v-divider></v-divider></v-row>
@@ -45,7 +49,7 @@ import {findAllByPath} from "@/api/file";
       $route() {
         const _this = this
         if(this.$route.params.path == null) {
-          let path = "home"
+          let path = 'index.html'
           findAllByPath(path).then(function (resp) {
             _this.itemList = resp.data
             _this.sliceArray()
@@ -62,7 +66,7 @@ import {findAllByPath} from "@/api/file";
     created() {
       const _this = this
       if(this.$route.params.path == null) {
-        let path = "home"
+        let path = "index.html"
         findAllByPath(path).then(function (resp) {
           _this.itemList = resp.data
           _this.sliceArray()
@@ -82,7 +86,7 @@ import {findAllByPath} from "@/api/file";
       }
     },
     methods: {
-      sliceArray() {
+      sliceArray() {  // 将数组分割成每行6个
         let list = [];
         for (let i = 1; i < Math.ceil(this.itemList.length / 6) + 1; i++) {
           list.push(this.itemList.slice(6 * (i - 1), 6 * i))

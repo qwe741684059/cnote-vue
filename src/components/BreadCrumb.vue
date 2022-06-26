@@ -1,6 +1,13 @@
 <template>
   <div>
-    <v-breadcrumbs :items="items" large></v-breadcrumbs>
+    <el-breadcrumb class="breadcrumb" >
+      <el-breadcrumb-item v-for="(item,idx) in items" :to="{path: item.to}" :key="idx">
+        <span style="font-size: 18px">
+          {{item.text}}
+        </span>
+
+      </el-breadcrumb-item>
+    </el-breadcrumb>
   </div>
 </template>
 
@@ -17,7 +24,6 @@ export default {
   },
   created() {
     this.getItems()
-
   },
   data() {
     return {
@@ -27,20 +33,20 @@ export default {
   methods: {
     getItems() { //处理面包屑导航的路径
       let items = []
-      if(this.path == null) {
-        let item = {text:'Home', disabled: false, href:'http://localhost:8080/home'}
+      if(this.path == null || this.path ==='index.html') {
+        let item = {text:'Home', to:'index.html'}
         items.push(item)
       } else {
         let pathList = this.path.split('/')
 
         for (let i = 0; i < pathList.length; i++) {
-          let item = {text:'',disabled:false, href:'http://localhost:8080'}
+          let item = {text:'', to:''}
           item.text = pathList[i]
-          if (item.text === 'home') {
+          if (item.text === 'index.html') {
             item.text = 'Home'
           }
           for (let j = 0; j < i+1; j++) {
-            item.href = item.href + '/' + pathList[j]
+            item.to = item.to + '/' + pathList[j]
           }
           items.push(item)
         }
@@ -52,5 +58,8 @@ export default {
 </script>
 
 <style scoped>
-
+.breadcrumb{
+  position: relative;
+  top: 15px;
+}
 </style>
